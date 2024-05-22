@@ -7,10 +7,11 @@ public class CartBehevior : MonoBehaviour
     PlayerController playerController;
     private const int PlayerLayerIndex = 3;
     private const int IgnorePlayerIndex = 9;
+       
 
     private void Start()
     {
-        playerController = FindObjectOfType<PlayerController>();
+        playerController = FindObjectOfType<PlayerController>();        
     }
 
     private void EnableLayerCollision()
@@ -22,12 +23,12 @@ public class CartBehevior : MonoBehaviour
     {
         Physics2D.IgnoreLayerCollision(PlayerLayerIndex, IgnorePlayerIndex, true);
     }
-
+    
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision != null && collision.gameObject.layer == 3)
         {
-            if (playerController != null && playerController.isPushing)
+           if (playerController != null && playerController.isPushing)
             {
                 EnableLayerCollision();
                 playerController.MoveSpeed = 5f;
@@ -43,7 +44,7 @@ public class CartBehevior : MonoBehaviour
             else
             {
                 DisableLayerCollision();
-                if (playerController != null && playerController.animator != null)
+               if (playerController != null && playerController.animator != null)
                 {
                     playerController.animator.SetBool("IsPushing", false);
                 }
@@ -54,7 +55,6 @@ public class CartBehevior : MonoBehaviour
             }
         }
     }
-
 
     private void OnTriggerExit2D(Collider2D collision)
     {
@@ -71,4 +71,5 @@ public class CartBehevior : MonoBehaviour
             }
         }
     }
+
 }

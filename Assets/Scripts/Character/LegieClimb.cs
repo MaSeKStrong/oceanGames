@@ -26,7 +26,8 @@ public class LegieClimb : MonoBehaviour
                 controller.enabled = false;
                 Animator animator = collision.gameObject.GetComponent<Animator>();
                 if (animator != null)
-                    collision.GetComponent<Animator>().SetTrigger("LedgeClimbing");
+                    //collision.GetComponent<Animator>().SetTrigger("LedgeClimbing");
+                    collision.GetComponent<Animator>().SetBool("canClimbe", true);
 
                 StartCoroutine(MoveObject(collision.transform));
             }
@@ -40,7 +41,8 @@ public class LegieClimb : MonoBehaviour
                 controller.enabled = false;
                 Animator animator = collision.gameObject.GetComponent<Animator>();
                 if (animator != null)
-                    collision.GetComponent<Animator>().SetTrigger("LedgeClimbing");
+                    //collision.GetComponent<Animator>().SetTrigger("LedgeClimbing");
+                    collision.GetComponent<Animator>().SetBool("canClimbe", true);
 
                 StartCoroutine(MoveObject(collision.transform));
             }
@@ -60,5 +62,6 @@ public class LegieClimb : MonoBehaviour
         }
         isMoving = false;
         controller.enabled = true;
+        //animator = GetComponent<Animator>().SetBool("canClimbe", false);
     }
 }

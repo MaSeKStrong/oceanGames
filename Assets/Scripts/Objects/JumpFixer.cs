@@ -13,7 +13,7 @@ public class JumpFixer : MonoBehaviour
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
-            controller.isGrounded = false;
+            //controller.isGrounded = false;
             controller.rb.velocity = new Vector2(controller.rb.velocity.x, -1);
         }
     }

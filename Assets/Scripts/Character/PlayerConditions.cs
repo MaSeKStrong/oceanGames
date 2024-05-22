@@ -11,7 +11,7 @@ public class PlayerConditions : MonoBehaviour
     public bool IsRunning;
 
     public void CheckIsWeAlived() 
-    {
+    {        
         if (lifePoints == 0)
         {
             Dead();

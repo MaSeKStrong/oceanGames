@@ -11,7 +11,8 @@ public class LegjeClimbTriggerAnimation : MonoBehaviour
         {
             Animator animator = collision.gameObject.GetComponent<Animator>();
             if (animator != null)
-            collision.GetComponent<Animator>().SetTrigger("LedgeClimbing");
+                //collision.GetComponent<Animator>().SetTrigger("LedgeClimbing");
+                collision.GetComponent<Animator>().SetBool("canClimbe", true);
         }
     }
 }
