@@ -8,66 +8,62 @@ using UnityEngine.Events;
 
 public class PlayerController : MonoBehaviour
 {
-    public float MoveSpeed = 10f;
-    [SerializeField] float verticalSpeed = 2.5f;
-    [SerializeField] float jumpForce = 24f;
-    [SerializeField] Transform groundCheck;
-    [SerializeField] LayerMask groundLayer;
-    [SerializeField] float groundRadious;
     public Animator animator;
-    public bool CanWeGoVertical { get; set; }
-    public bool CanWeTakeAnObject { get; set; }
-    public bool IsWeHoldAnObject { get; set; }
     public Rigidbody2D rb { get; private set; }
-    public UnityEvent onTakeKeyPressed;
-    public UnityEvent onThrowKeyPressed;
-    public UnityEvent onPushKeyPressed;
-    public bool facingRight = true;
-    public bool isPushing { get; private set; }
-    public bool isGrounded;
-    private float startSpeed;
-    private float startJumpForce;
 
-    private bool isRestarting = false;
-    private float heldTime = 0f;
-    private const float restartTimeThreshold = 1f;
-
-    private float lastJumpTime;
-
-    private float jumpTime = 0f;
-
-    GameObject pullingObj;
-       
-    private bool isWalking;
-    private bool canJump;
-    private bool isTouchingLedge;
-    private bool isTouchingWall;
-    private bool canClimbLedge = false;
-    private bool ledgeDetected;   
-    private bool isWallSliding;
-    private bool isObjPull;
-    [HideInInspector] public bool isPulling;
-
-
-    private Vector2 ledgePosBot;
-    private Vector2 ledgePos1;
-    private Vector2 Ledgepos2;
-
-    private float movementInputDirection;   
-    [SerializeField] private float groundCheckRadius;
+    public float MoveSpeed = 10f;
+    public float baseSpeed;
+    public float pusingspeed;
+    [SerializeField] float verticalSpeed = 2.5f;
+    [SerializeField] float jumpForce = 24f;    
+    [SerializeField] float groundCheckRadius;
+    private float movementInputDirection;
     [SerializeField] private float wallChekDistance;
     [SerializeField] private float wallslidingspeed;
     [SerializeField] private float ledgeClimbXoffset1;
     [SerializeField] private float ledgeClimbYoffset1;
     [SerializeField] private float ledgeClimbXoffset2;
     [SerializeField] private float ledgeClimbYoffset2;
+    private float startSpeed;
+    private float startJumpForce;
 
-    public Transform groundChek;
+    [SerializeField] Transform groundChek;
     public Transform wallCheck;
     public Transform ledgeCheck;
 
     public LayerMask whatIsGround;
     public LayerMask whatIsObj;
+    public bool CanWeGoVertical { get; set; }
+    public bool CanWeTakeAnObject { get; set; }
+    public bool IsWeHoldAnObject { get; set; }
+    
+    public bool facingRight = true;
+    public bool isPushing { get; private set; }
+    public bool isGrounded;
+    private bool isRestarting = false;
+    private bool isWalking;
+    private bool canJump;
+    private bool isTouchingLedge;
+    private bool isTouchingWall;
+    private bool canClimbLedge = false;
+    private bool ledgeDetected;
+    private bool isWallSliding;
+    private bool isObjPull;
+    [HideInInspector] public bool isPulling;
+    private float heldTime = 0f;
+    private const float restartTimeThreshold = 1f;
+    private float lastJumpTime;
+    private float jumpTime = 0f;
+
+    GameObject pullingObj;
+    
+    private Vector2 ledgePosBot;
+    private Vector2 ledgePos1;
+    private Vector2 Ledgepos2;
+
+    public UnityEvent onTakeKeyPressed;
+    public UnityEvent onThrowKeyPressed;
+    public UnityEvent onPushKeyPressed;
 
     private void Start()
     {
@@ -131,6 +127,11 @@ public class PlayerController : MonoBehaviour
                 Restart.LoadThisScene();
             }
         }
+
+        if (isGrounded && rb.velocity.y != 0)
+        {
+            Debug.Log("deadth");
+        }
         
     }
    
@@ -140,7 +141,7 @@ public class PlayerController : MonoBehaviour
         CheckSurroundings();
          if (CanWeGoVertical)
         {
-            rb.gravityScale = 0;
+            rb.gravityScale = 0;           
             float verticalInput = Input.GetAxis("Vertical");
             Vector2 moveDirectionVertical = new Vector2(0, verticalInput);
             float moveVertical = moveDirectionVertical.y * verticalSpeed;
@@ -148,8 +149,8 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            rb.gravityScale = 5;
-        }
+            rb.gravityScale = 10;
+        }         
          /*
         float horizontalInput = Input.GetAxis("Horizontal");
         Vector2 moveDirection = new Vector2(horizontalInput, 0);
@@ -310,11 +311,11 @@ public class PlayerController : MonoBehaviour
 
         if (isGrounded && rb.velocity.y <= 0)
         {
-            canJump = true;
+            canJump = true;            
         }
         else
         {
-            canJump = false;
+            canJump = false;            
         }
     }
     void Jump()
@@ -322,6 +323,7 @@ public class PlayerController : MonoBehaviour
         if (canJump)
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+           
         }
     }
 
@@ -360,7 +362,7 @@ public class PlayerController : MonoBehaviour
     {
        MoveSpeed = startSpeed;
       jumpForce = startJumpForce;
-    }
+    } 
 
     private void OnDrawGizmos()
     {
