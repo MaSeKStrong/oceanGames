@@ -10,12 +10,31 @@ public class CameraFollow : MonoBehaviour
 		[Header("Camera bounds")]
 		public Vector3 minCamerabounds;
 		public Vector3 maxCamerabounds;
+	
 
     private void Start()
-    {
-        GameObject targetGO = GameObject.FindGameObjectWithTag("Player");
+	{
+		if (!Restart.isCrest) 
+		{ 
+		GameObject targetGO = GameObject.FindGameObjectWithTag("Player");
 		target = targetGO.GetComponent<Transform>();
+		}
+
+		if (Restart.isCrest)
+		{
+			Search();
+			smoothSpeed = 100;
+		}
     }
+
+	void Search()
+    {
+		GameObject targetGO = GameObject.FindGameObjectWithTag("Player");
+		target = targetGO.GetComponent<Transform>();
+		smoothSpeed = 0.125f;
+		//Restart.isCrest = false;
+	}
+
 
     private void LateUpdate()
 		{

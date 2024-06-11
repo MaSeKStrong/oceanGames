@@ -12,7 +12,10 @@ public class FallingChecker : MonoBehaviour
     {
         if (playerController.rb.velocity.y < dangerHeight)
         {
-            playerConditions.Dead();
+            //playerConditions.Dead();
+            playerConditions.PreDeath();
         }
     }
+
+    
 }

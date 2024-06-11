@@ -57,7 +57,7 @@ Rigidbody2D:
   m_Mass: 30
   m_LinearDrag: 2
   m_AngularDrag: 0.05
-  m_GravityScale: 5
+  m_GravityScale: 10
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -81,27 +81,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b99a82d0aac4cf40a2b5ecc69da468a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MoveSpeed: 10
-  verticalSpeed: 10
-  jumpForce: 24
-  groundCheck: {fileID: 7870116570013965515}
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  groundRadious: 0.3
   animator: {fileID: 2020439833668772856}
-  onTakeKeyPressed:
-    m_PersistentCalls:
-      m_Calls: []
-  onThrowKeyPressed:
-    m_PersistentCalls:
-      m_Calls: []
-  onPushKeyPressed:
-    m_PersistentCalls:
-      m_Calls: []
-  facingRight: 1
-  isGrounded: 0
-  isPulling: 0
+  MoveSpeed: 10
+  baseSpeed: 10
+  pusingspeed: 5
+  verticalSpeed: 10
+  jumpForce: 48
   groundCheckRadius: 0.3
   wallChekDistance: 2
   wallslidingspeed: 1
@@ -118,6 +103,18 @@ MonoBehaviour:
   whatIsObj:
     serializedVersion: 2
     m_Bits: 512
+  facingRight: 1
+  isGrounded: 0
+  isPulling: 0
+  onTakeKeyPressed:
+    m_PersistentCalls:
+      m_Calls: []
+  onThrowKeyPressed:
+    m_PersistentCalls:
+      m_Calls: []
+  onPushKeyPressed:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &9137972226934666264
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -150,7 +147,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerController: {fileID: 57101490417264103}
   playerConditions: {fileID: 9137972226934666264}
-  dangerHeight: -23.2
+  dangerHeight: -40
 --- !u!212 &3726169845536898932
 SpriteRenderer:
   m_ObjectHideFlags: 0

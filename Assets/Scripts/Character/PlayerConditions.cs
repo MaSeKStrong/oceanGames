@@ -14,18 +14,25 @@ public class PlayerConditions : MonoBehaviour
     {        
         if (lifePoints == 0)
         {
-            Dead();
+            //Dead();
+            PreDeath();
         }
     }
 
-    public void Dead()
+    public void PreDeath()
     {
         playerController.animator.SetTrigger("Dead");
         playerController.enabled = false;
+    }    
+
+    public void Dead()
+    {
+        //playerController.animator.SetTrigger("Dead");
+        //playerController.enabled = false;        
         lifePoints = 0;
         OnCharacterDeath.Invoke();
         Debug.Log("youdied");
         Restart.ReloadSceneWithProgressCheck();
-        Invoke("ReloadSceneWithDelay", 2f);
+        Invoke("ReloadSceneWithDelay", 2f);        
     }
 }

@@ -31,7 +31,7 @@ public class CartBehevior : MonoBehaviour
            if (playerController != null && playerController.isPushing)
             {
                 EnableLayerCollision();
-                playerController.MoveSpeed = 5f;
+                playerController.MoveSpeed = playerController.pusingspeed;
                 if (playerController.animator != null)
                 {
                     playerController.animator.SetBool("IsPushing", true);
@@ -50,7 +50,7 @@ public class CartBehevior : MonoBehaviour
                 }
                 if (playerController != null)
                 {
-                    playerController.MoveSpeed = 10f;
+                    playerController.MoveSpeed = playerController.baseSpeed;
                 }
             }
         }
@@ -67,7 +67,7 @@ public class CartBehevior : MonoBehaviour
             }
             if (playerController != null)
             {
-                playerController.MoveSpeed = 10f;
+                playerController.MoveSpeed = playerController.baseSpeed;
             }
         }
     }
