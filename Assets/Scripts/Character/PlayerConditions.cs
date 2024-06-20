@@ -25,6 +25,12 @@ public class PlayerConditions : MonoBehaviour
         playerController.enabled = false;
     }    
 
+    public void WaterDeath()
+    {
+        playerController.animator.SetTrigger("water");
+        playerController.enabled = false;
+    }
+
     public void Dead()
     {
         //playerController.animator.SetTrigger("Dead");

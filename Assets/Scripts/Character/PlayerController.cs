@@ -301,7 +301,7 @@ public class PlayerController : MonoBehaviour
     {
         animator.SetBool("IsWalking", isWalking);
         animator.SetBool("isGrounded", isGrounded);
-        animator.SetBool("IsPushing", isPulling);
+        animator.SetBool("isPulling", isPulling);
         animator.SetBool("IsPushing", isPushing);
 
     }

@@ -16,7 +16,7 @@ public class LedderBahavior : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Player")) 
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Player") && Input.GetKey(KeyCode.LeftShift)) 
         {
             playerController.CanWeGoVertical = true;
             playerController.animator.SetBool("IsOnTree", true);
@@ -37,6 +37,13 @@ public class LedderBahavior : MonoBehaviour
                 playerController.animator.SetBool("IsClimbingUp", false);
                 playerController.animator.SetBool("IsClimbingDown", false); ;
             }
+        }
+        else
+        {
+            playerController.CanWeGoVertical = false;
+            playerController.animator.SetBool("IsOnTree", false);
+            playerController.animator.SetBool("IsClimbingUp", false);
+            playerController.animator.SetBool("IsClimbingDown", false);
         }
     }
 

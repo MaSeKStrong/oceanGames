@@ -16,7 +16,7 @@ public class waterScripts : MonoBehaviour
     {
         if (collision != null && collision.gameObject.layer == 3)
         {
-            playerController.PreDeath();
+            playerController.WaterDeath();
         }
     }
 }
