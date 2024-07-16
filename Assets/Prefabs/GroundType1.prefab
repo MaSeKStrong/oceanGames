@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6627560026288521266}
   - component: {fileID: 7069387503177514143}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: GroundGrass (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2918306269005770430}
   - component: {fileID: 1460468585726947628}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: GroundType1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -195,7 +195,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3333631420557344060}
   - component: {fileID: 571619565741400611}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Ground (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -279,7 +279,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5879207339820508013}
   - component: {fileID: 4334681854829907535}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Ground (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -363,7 +363,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1643118515289084435}
   - component: {fileID: 3138402010451917960}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: GroundGrass
   m_TagString: Untagged
   m_Icon: {fileID: 0}

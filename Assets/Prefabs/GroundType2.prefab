@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1979843673780035981}
   - component: {fileID: 5730469104855907630}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: GrondGrassFull (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2761454166319661735}
   - component: {fileID: 2066446078662033601}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: GroundType2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -174,7 +174,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1215457416791028282}
   - component: {fileID: 2958432345187468575}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: GrondGrassType2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
