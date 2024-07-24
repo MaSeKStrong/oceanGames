@@ -530,11 +530,13 @@ MonoBehaviour:
   jumpForce: 48
   groundCheckRadius: 0.3
   wallChekDistance: 2
-  wallslidingspeed: 1
+  wallslidingspeed: 0.1
   ledgeClimbXoffset1: 4
   ledgeClimbYoffset1: 5
   ledgeClimbXoffset2: 3
   ledgeClimbYoffset2: 3
+  wallHopForce: 5
+  wallJumpForce: 5
   groundChek: {fileID: 2492584016585342938}
   wallCheck: {fileID: 3501418469406708281}
   ledgeCheck: {fileID: 1514625914283834686}
@@ -544,9 +546,16 @@ MonoBehaviour:
   whatIsObj:
     serializedVersion: 2
     m_Bits: 512
+  whatIsEdge:
+    serializedVersion: 2
+    m_Bits: 32768
   facingRight: 1
   isGrounded: 0
+  canPushing: 0
+  canJump: 0
   isPulling: 0
+  wallHopDirection: {x: 1, y: 0.5}
+  wallJumpDirection: {x: 1, y: 2}
   onTakeKeyPressed:
     m_PersistentCalls:
       m_Calls: []

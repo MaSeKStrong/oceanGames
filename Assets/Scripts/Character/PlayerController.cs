@@ -26,6 +26,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float ledgeClimbYoffset2;
     private float startSpeed;
     private float startJumpForce;
+    public float wallHopForce;
+    public float wallJumpForce;
+
+    private int facingDirection = 1;
 
     [SerializeField] Transform groundChek;
     public Transform wallCheck;
@@ -33,6 +37,7 @@ public class PlayerController : MonoBehaviour
 
     public LayerMask whatIsGround;
     public LayerMask whatIsObj;
+    
     public bool CanWeGoVertical { get; set; }
     public bool CanWeTakeAnObject { get; set; }
     public bool IsWeHoldAnObject { get; set; }
@@ -40,9 +45,10 @@ public class PlayerController : MonoBehaviour
     public bool facingRight = true;
     public bool isPushing { get; private set; }
     public bool isGrounded;
+    public bool canPushing;
     private bool isRestarting = false;
     private bool isWalking;
-    private bool canJump;
+    public bool canJump;
     private bool isTouchingLedge;
     private bool isTouchingWall;
     private bool canClimbLedge = false;
@@ -61,6 +67,9 @@ public class PlayerController : MonoBehaviour
     private Vector2 ledgePos1;
     private Vector2 Ledgepos2;
 
+    public Vector2 wallHopDirection;
+    public Vector2 wallJumpDirection;
+
     public UnityEvent onTakeKeyPressed;
     public UnityEvent onThrowKeyPressed;
     public UnityEvent onPushKeyPressed;
@@ -69,6 +78,8 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        wallHopDirection.Normalize();
+        wallJumpDirection.Normalize();
     }
 
     private void Update()
@@ -99,7 +110,7 @@ public class PlayerController : MonoBehaviour
             Debug.Log($"IsWeHoldAnObject + {IsWeHoldAnObject}");
         }
 
-        if (Input.GetKey(KeyCode.LeftShift)) 
+        if (canPushing /*Input.GetKey(KeyCode.LeftShift)*/) 
         {
             isPushing = true;
         }
@@ -138,51 +149,9 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         ApplyMovement();
-        CheckSurroundings();
-         if (CanWeGoVertical)
-        {
-            rb.gravityScale = 0;           
-            float verticalInput = Input.GetAxis("Vertical");
-            Vector2 moveDirectionVertical = new Vector2(0, verticalInput);
-            float moveVertical = moveDirectionVertical.y * verticalSpeed;
-            rb.velocity = new Vector2(rb.velocity.x, moveDirectionVertical.y * verticalSpeed);
-        }
-        else
-        {
-            rb.gravityScale = 10;
-        }         
-         /*
-        float horizontalInput = Input.GetAxis("Horizontal");
-        Vector2 moveDirection = new Vector2(horizontalInput, 0);
-        float move = moveDirection.x * MoveSpeed;
-        rb.velocity = new Vector2(moveDirection.x * MoveSpeed, rb.velocity.y);
-        if (rb.velocity.x > 0.1f || rb.velocity.x < -0.1f)
-        {
-            animator.SetBool("IsWalking", true);
-        }
-        else 
-        {
-            animator.SetBool("IsWalking", false);
-        }
-        if (rb.velocity.x > 5f || rb.velocity.x < -5f)
-        {
-            animator.SetBool("IsRunning", true);
-        }
-        else
-        {
-            animator.SetBool("IsRunning", false);
-        }
-
-
-        if (move > 0 && !facingRight)
-        {
-            Flip();
-        }
-        else if (move < 0 && facingRight)
-        {
-            Flip();
-        }*/
+        CheckSurroundings();                    
     }
+
     void CheckIfWallSliding()
     {
         if (isTouchingWall && !isGrounded && rb.velocity.y < 0)
@@ -201,6 +170,7 @@ public class PlayerController : MonoBehaviour
         transform.position = Ledgepos2;
         ledgeDetected = false;
         animator.SetBool("canClimbe", canClimbLedge);
+        
 
     }
     private void CheckSurroundings()
@@ -214,6 +184,13 @@ public class PlayerController : MonoBehaviour
         {
             ledgeDetected = true;
             ledgePosBot = wallCheck.position;
+            animator.SetTrigger("preClimb");
+           
+        }             
+
+        if (isGrounded)
+        {
+            ledgeDetected = false;
         }
 
         if (hit.collider != null)
@@ -225,7 +202,7 @@ public class PlayerController : MonoBehaviour
 
     void CheckLedgeClimb()
     {
-        if (ledgeDetected && !canClimbLedge)
+        if (Input.GetKey(KeyCode.LeftShift) && ledgeDetected && !canClimbLedge)
         {
             canClimbLedge = true;
 
@@ -238,18 +215,11 @@ public class PlayerController : MonoBehaviour
             {
                 ledgePos1 = new Vector2(Mathf.Ceil(ledgePosBot.x - wallChekDistance) + ledgeClimbXoffset1, Mathf.Floor(ledgePosBot.y) + ledgeClimbYoffset1);
                 Ledgepos2 = new Vector2(Mathf.Ceil(ledgePosBot.x - wallChekDistance) - ledgeClimbXoffset1, Mathf.Floor(ledgePosBot.y) + ledgeClimbYoffset1);
-            }
-
-
-            //anim.SetBool("canClimbe", canClimbLedge);
+            }            
         }
 
         animator.SetBool("canClimbe", canClimbLedge);
-        /*
-        if (canClimbLedge)
-        {
-            transform.position = ledgePos1;
-        }*/
+       
     }
 
 
@@ -283,13 +253,18 @@ public class PlayerController : MonoBehaviour
             Jump();
         }
 
-        if (Input.GetKey(KeyCode.LeftControl) && isObjPull)
+        if (Input.GetButtonDown("Jump") && CanWeGoVertical)
+        {
+            JumpTree();
+        }
+
+        if (Input.GetKey(KeyCode.LeftShift) && isObjPull)
         {
             pullingObj.GetComponent<FixedJoint2D>().connectedBody = this.GetComponent<Rigidbody2D>();
             pullingObj.GetComponent<FixedJoint2D>().enabled = true;
             isPulling = true;
         }
-        if (Input.GetKeyUp(KeyCode.LeftControl))
+        if (Input.GetKeyUp(KeyCode.LeftShift))
         {
             pullingObj.GetComponent<FixedJoint2D>().enabled = false;
             isObjPull = false;
@@ -309,7 +284,7 @@ public class PlayerController : MonoBehaviour
     void CheckifCanJump()
     {
 
-        if (isGrounded && rb.velocity.y <= 0)
+        if ((isGrounded && rb.velocity.y <= 0) || isWallSliding)
         {
             canJump = true;            
         }
@@ -320,17 +295,33 @@ public class PlayerController : MonoBehaviour
     }
     void Jump()
     {
-        if (canJump)
+        if (canJump && !isWallSliding)
         {
-            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-           
+            rb.velocity = new Vector2(rb.velocity.x, jumpForce);           
+        }else if(isWallSliding && movementInputDirection == 0 && canJump)
+        {
+            isWallSliding = false;
+            Vector2 forceToAdd = new Vector2(wallHopForce * wallHopDirection.x * -facingDirection, wallHopForce * wallHopDirection.y);
+            rb.AddForce(forceToAdd, ForceMode2D.Impulse);
+        }else if((isWallSliding || isTouchingWall) && movementInputDirection != 0 && canJump)
+        {
+            isWallSliding = false;
+            Vector2 forceToAdd = new Vector2(wallJumpForce * wallJumpDirection.x * movementInputDirection, wallJumpForce * wallJumpDirection.y);
+            rb.AddForce(forceToAdd, ForceMode2D.Impulse);
         }
+    }
+    void JumpTree()
+    {
+        rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+        animator.SetTrigger("Jump");
+        rb.gravityScale = 10;
+        CanWeGoVertical = false;
     }
 
     void ApplyMovement()
     {
         rb.velocity = new Vector2(MoveSpeed * movementInputDirection, rb.velocity.y);
-
+        
         if (isWallSliding)
         {
             if (rb.velocity.y < -wallslidingspeed)
@@ -338,16 +329,30 @@ public class PlayerController : MonoBehaviour
                 rb.velocity = new Vector2(rb.velocity.x, -wallslidingspeed);
             }
         }
+
+        if (CanWeGoVertical)
+        {
+            rb.gravityScale = 0;
+            float verticalInput = Input.GetAxis("Vertical");
+            Vector2 moveDirectionVertical = new Vector2(0, verticalInput);
+            float moveVertical = moveDirectionVertical.y * verticalSpeed;
+            rb.velocity = new Vector2(rb.velocity.x, moveDirectionVertical.y * verticalSpeed);
+        }
+        else
+        {
+            rb.gravityScale = 10;
+        }
+
     }
 
     private void Flip()
-    {/*
-        facingRight = !facingRight;
-        Vector3 theScale = transform.localScale;
-        theScale.x *= -1;
-        transform.localScale = theScale;*/
-        facingRight = !facingRight;
-        transform.Rotate(0f, 180f, 0f);
+    {
+        if (!isWallSliding)
+        {
+            facingDirection *= -1;
+            facingRight = !facingRight;
+            transform.Rotate(0f, 180f, 0f);
+        }
     }
 
     public void StopCharacter()
