@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2492584016585342938}
-  - component: {fileID: 3608967430690554748}
   m_Layer: 3
   m_Name: Cheker
   m_TagString: Untagged
@@ -32,41 +31,37 @@ Transform:
   m_Father: {fileID: 4701961494771781661}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!58 &3608967430690554748
-CircleCollider2D:
+--- !u!1 &5758962725621396366
+GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3625475348119870514}
-  m_Enabled: 0
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.8984518, y: 1.963054}
-  serializedVersion: 2
-  m_Radius: 0.24
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9651978552331951}
+  m_Layer: 3
+  m_Name: DownWallCheker
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9651978552331951
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5758962725621396366}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.244, y: 2.426, z: 0}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4701961494771781661}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6053378268423627058
 GameObject:
   m_ObjectHideFlags: 0
@@ -77,7 +72,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3501418469406708281}
   m_Layer: 3
-  m_Name: Wallcheck
+  m_Name: UpWallcheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -91,7 +86,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6053378268423627058}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 5.91, z: 0}
+  m_LocalPosition: {x: 0, y: 7.42, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -124,7 +119,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6762460740222161622}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 8.59, z: 0}
+  m_LocalPosition: {x: 0, y: 9.6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -459,6 +454,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -7552582706839291426, guid: 7937bd536efb6544fbc8778a0e19018a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3501418469406708281}
+    - targetCorrespondingSourceObject: {fileID: -7552582706839291426, guid: 7937bd536efb6544fbc8778a0e19018a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 9651978552331951}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: -8653719598885068355, guid: 7937bd536efb6544fbc8778a0e19018a, type: 3}
       insertIndex: -1
@@ -527,17 +525,22 @@ MonoBehaviour:
   baseSpeed: 10
   pusingspeed: 5
   verticalSpeed: 10
-  jumpForce: 48
+  jumpForce: 22000
+  jumpIteration: 0
+  jumpValueIteration: 240
   groundCheckRadius: 0.3
-  wallChekDistance: 2
-  wallslidingspeed: 0.1
-  ledgeClimbXoffset1: 4
+  newWallCheckRadius: 1
+  ledgeRayCorrectY: 0.25
+  offsetY: 0
+  minCorrectDistance: 0.01
+  wallChekDistance: 1.2
+  ledgeClimbXoffset1: 5
   ledgeClimbYoffset1: 5
-  ledgeClimbXoffset2: 3
-  ledgeClimbYoffset2: 3
-  wallHopForce: 5
-  wallJumpForce: 5
+  ledgeClimbXoffset2: 5
+  ledgeClimbYoffset2: 5
+  jumpWallTime: 1
   groundChek: {fileID: 2492584016585342938}
+  newWallChek: {fileID: 9651978552331951}
   wallCheck: {fileID: 3501418469406708281}
   ledgeCheck: {fileID: 1514625914283834686}
   whatIsGround:
@@ -546,16 +549,13 @@ MonoBehaviour:
   whatIsObj:
     serializedVersion: 2
     m_Bits: 512
-  whatIsEdge:
-    serializedVersion: 2
-    m_Bits: 32768
   facingRight: 1
   isGrounded: 0
   canPushing: 0
   canJump: 0
+  isWall: 0
   isPulling: 0
-  wallHopDirection: {x: 1, y: 0.5}
-  wallJumpDirection: {x: 1, y: 2}
+  jumpAngle: {x: 45, y: 45}
   onTakeKeyPressed:
     m_PersistentCalls:
       m_Calls: []
@@ -614,7 +614,7 @@ Rigidbody2D:
   m_LinearDrag: 2
   m_AngularDrag: 0.05
   m_GravityScale: 10
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 971ebf303050ee04fbb5c1410dade8ef, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
