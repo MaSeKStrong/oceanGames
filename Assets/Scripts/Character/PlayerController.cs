@@ -66,12 +66,14 @@ public class PlayerController : MonoBehaviour
     private bool blockMoveX;
         [HideInInspector] public bool isPulling;
     
-        private float heldTime = 0f; // нужно для рестарта, если сделать нормальную функцию рестарта можно будет удалить
+
+    private float heldTime = 0f; // нужно для рестарта, если сделать нормальную функцию рестарта можно будет удалить
         private const float restartTimeThreshold = 1f;
         private float lastJumpTime;
         private float jumpTime = 0f;
 
         GameObject pullingObj;
+    
     
         private Vector2 ledgePosBot;
         private Vector2 ledgePos1;
@@ -187,18 +189,20 @@ public class PlayerController : MonoBehaviour
                 animator.SetTrigger("preClimb");
 
             }             
-        */
-            if (isGrounded)
+        */           
+            if (hit.collider != null)
+            {
+                pullingObj = hit.collider.gameObject;
+                isObjPull = true;
+            
+            } 
+        
+        if (isGrounded)
             {
                 ledgeDetected = false;
             animator.SetBool("proClimb", false);
         }
         
-            if (hit.collider != null)
-            {
-                pullingObj = hit.collider.gameObject;
-                isObjPull = true;
-            }
         }
     void ChekingLedge()
     {
@@ -305,8 +309,8 @@ public class PlayerController : MonoBehaviour
                 pullingObj.GetComponent<FixedJoint2D>().enabled = false;
                 isObjPull = false;
                 isPulling = false;
-            }
-        }
+            }        
+    }
 
         void UpdateAnimations()
         {
