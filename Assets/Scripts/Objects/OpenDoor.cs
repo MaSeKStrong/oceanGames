@@ -7,21 +7,21 @@ public class OpenDoor : MonoBehaviour
     Animator anim;
     public bool isOpen;
     bool isReadyToOpen;
-    private PlayerController playerController;
+    bool isReadyToClose;
     public BoxCollider2D closeCollider;
 
     // Start is called before the first frame update
     void Start()
     {
         anim = GetComponent<Animator>();
-        GameObject targetGO = GameObject.FindGameObjectWithTag("Player");
-        playerController = targetGO.GetComponent<PlayerController>();
+     
     }
 
     // Update is called once per frame
     void Update()
     {
         OpentoDoor();
+    
     }
 
     void OpentoDoor()
@@ -31,31 +31,39 @@ public class OpenDoor : MonoBehaviour
     
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision != null && collision.gameObject.layer == 3) //&& Input.GetKey(KeyCode.LeftShift))
+        if (collision != null && collision.gameObject.layer == 3) 
         {
-            isReadyToOpen = true;
+            if (!isOpen)
+            {
+                isReadyToOpen = true;
+            }
+            else { isReadyToClose = true; }
         }
     }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
         if ((collision != null && collision.gameObject.layer == 3) && Input.GetKey(KeyCode.LeftShift) && isReadyToOpen){
-            if (!isOpen)
-            {
                 isOpen = true;
                 closeCollider.GetComponent<Collider2D>().enabled = false;
-            }
-            else { isOpen = false; }
+                      
+         }
+        if ((collision != null && collision.gameObject.layer == 3) && Input.GetKey(KeyCode.LeftShift) && isReadyToClose)
+        {
+            isOpen = false;
+            closeCollider.GetComponent<Collider2D>().enabled = true;
         }
-    }
-
+    }   
+    
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision != null && collision.gameObject.layer == 3)
         {
-            //isOpen = false;
+           
             isReadyToOpen = false;
-            closeCollider.GetComponent<Collider2D>().enabled = true;
+            isReadyToClose = false;
+           
+            
         }
     }
 }
